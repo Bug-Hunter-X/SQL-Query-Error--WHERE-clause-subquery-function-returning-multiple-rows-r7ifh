@@ -1,0 +1,5 @@
+The SQL query uses a function in the WHERE clause that returns a varying number of rows for different input values. This causes the query to fail because the WHERE clause expects a single Boolean value for each row, but it receives a table with multiple rows instead.  Example:  SELECT * FROM employees WHERE department IN (SELECT dept_id FROM departments WHERE location = 'London');
+If the subquery (SELECT dept_id FROM departments WHERE location = 'London') returns more than one department ID, the query will fail. This is because SQL's `IN` operator does not handle multi-row subquery results for this particular context as expected.
+Another example involving user defined functions:
+SELECT * FROM products WHERE IsDiscounted(product_id) = 1; 
+If `IsDiscounted` returns multiple rows for some `product_id` due to a programming error within the function, the query will fail. 
